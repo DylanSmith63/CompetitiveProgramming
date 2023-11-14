@@ -40,11 +40,11 @@ struct Trie {
             if (cur->o && !cur->o->cnt) cur->o = nullptr;
         }
     }
-    int maxXor(int n, bool min = 0) {
+    int maxXor(int n) {
         Node *cur = root;
         int res = 0;
         for (int j = bits - 1; j >= 0; j--) {
-            if ((min ? 1 : 0) ^ n & 1 << j) {
+            if (n & 1 << j) {
                 if (cur->z) {
                     cur = cur->z;
                     res ^= 1 << j;
