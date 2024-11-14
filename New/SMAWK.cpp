@@ -60,3 +60,30 @@ vector<int> smawk(F f, vector<int> rows, vector<int> cols) {
     }
     return row_mins;
 }
+
+// Min-plus Convolution (b must be convex)
+vector<ll> min_plus(vector<ll> a, vector<ll> b) {
+    int n = sz(a), m = sz(b);
+    auto get = [&](int r, int c) { return a[c] + b[r - c]; };
+    auto comp = [&](int r, int c1, int c2) {
+        if (r - max(c1, c2) < 0) return c1 < c2;
+        if (r - min(c1, c2) >= m) return c2 < c1;
+        return get(r, c1) <= get(r, c2);
+    };
+    vector<int> rows, cols;
+    for (int i = 0; i < n + m - 1; i++) rows.pb(i);
+    for (int j = 0; j < n; j++) cols.pb(j);
+    vector<int> row_mins = smawk(comp, rows, cols);
+    vector<ll> res;
+    for (int i = 0; i < n + m - 1; i++) res.pb(get(i, row_mins[i]));
+    return res;
+}
+
+// Min-plus Convolution (b must be concave)
+vector<ll> max_plus(vector<ll> a, vector<ll> b) {
+    for (ll &i : a) i = -i;
+    for (ll &i : b) i = -i;
+    vector<ll> res = min_plus(a, b);
+    for (ll &i : res) i = -i;
+    return res;
+}
