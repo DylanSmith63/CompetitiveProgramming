@@ -10,7 +10,7 @@
  * merge() should merge nodes a and b and return the result
  * by default this supports range addition, range set, range multiply, and range sum queries
  * Time: Construction is $O(N)$, queries and updates are all $O(\log N)$
- * Status: Used many times succesfully
+ * Status: Used many times successfully
  */
 #pragma once
 
